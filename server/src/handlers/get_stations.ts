@@ -1,10 +1,17 @@
 
+import { db } from '../db';
+import { stationsTable } from '../db/schema';
 import { type Station } from '../schema';
 
 export async function getStations(): Promise<Station[]> {
-    // This is a placeholder declaration! Real code should be implemented here.
-    // The goal of this handler is to fetch all available train stations from the database.
-    // This will be useful for validating origin/destination cities and getting station IDs.
-    
-    return [];
+  try {
+    const results = await db.select()
+      .from(stationsTable)
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch stations:', error);
+    throw error;
+  }
 }
